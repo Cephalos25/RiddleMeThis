@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:ems="10"
+        android:hint="E-mail"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +24,55 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_login_email" />
+
+    <Button
+        android:id="@+id/button_login_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="68dp"
+        android:text="Login"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_login_password" />
+
+    <TextView
+        android:id="@+id/textView_login_forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/login_forgotPassword"
+        android:textColor="#0000EE"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_login_login"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_login_stayLogged" />
+
+    <TextView
+        android:id="@+id/textView_login_noAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/login_noAccount"
+        android:textColor="#0000EE"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_login_login"
+        app:layout_constraintTop_toBottomOf="@+id/textView_login_forgotPassword" />
+
+    <CheckBox
+        android:id="@+id/checkBox_login_stayLogged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="72dp"
+        android:text="@string/login_staylogged"
+        app:layout_constraintEnd_toStartOf="@+id/button_login_login"
+        app:layout_constraintTop_toBottomOf="@+id/editText_login_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>
