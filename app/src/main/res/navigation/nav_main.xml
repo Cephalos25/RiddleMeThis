@@ -65,4 +65,7 @@
     <action
         android:id="@+id/action_global_loginGraph"
         app:destination="@id/loginGraph" />
+    <action
+        android:id="@+id/action_global_myRiddlesFragment2"
+        app:destination="@id/myRiddlesFragment" />
 </navigation>
