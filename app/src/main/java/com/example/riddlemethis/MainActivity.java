@@ -2,6 +2,7 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import com.backendless.Backendless;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Backendless.initApp(this, "88F61704-EB84-2DDB-FFA9-9D248EEC5000",
+                "2C84CAE4-48E0-0D8D-FFC3-C79C21CB3600");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
