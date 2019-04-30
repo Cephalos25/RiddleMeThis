@@ -18,6 +18,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.Menu;
 
@@ -84,6 +87,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        int newFragmentId = -1;
+        if(id==R.id.nav_discover){
+            newFragmentId = R.id.discoverFragment;
+        }
+        else if(id==R.id.nav_ownriddles){
+            newFragmentId = R.id.loginFragment;
+        }
+
+        if(id!=-1) {
+            NavHostFragment hostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+            hostFragment.getNavController().navigate(newFragmentId);
+        }
 
 
 
