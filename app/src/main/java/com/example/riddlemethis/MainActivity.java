@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.nav_ownriddles){
             newFragmentId = R.id.loginFragment;
         }
+        else if(id==R.id.nav_create){
+            newFragmentId = R.id.createAccountFragment;
+        }
 
         if(id!=-1) {
             NavHostFragment hostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
