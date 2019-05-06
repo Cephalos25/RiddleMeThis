@@ -24,6 +24,8 @@ import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String TAG = "MainActivity";
+    public static final String BACKENDLESS_TAG = "Backendless";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

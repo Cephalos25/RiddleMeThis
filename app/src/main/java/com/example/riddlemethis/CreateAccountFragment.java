@@ -87,7 +87,7 @@ public class CreateAccountFragment extends Fragment {
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
-                            textViewError.setText(String.format("Error Code: %s - %s", fault.getCode(),
+                            textViewError.setText(String.format(getString(R.string.all_fault), fault.getCode(),
                                     fault.getMessage()));
                         }
                     });
