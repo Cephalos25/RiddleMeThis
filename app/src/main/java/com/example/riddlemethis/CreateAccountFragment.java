@@ -68,7 +68,7 @@ public class CreateAccountFragment extends Fragment {
                 || confirmPasswordField.getText().toString().equals("")){
                     textViewError.setText("All fields must be non-empty");
                 } else if (!passwordField.getText().toString().equals(confirmPasswordField.getText().toString())) {
-                    textViewError.setText("");
+                    textViewError.setText("The confirm password field's contents must match those of the password field");
                     confirmPasswordField.setText("");
                 } else {
                     BackendlessUser user = new BackendlessUser();

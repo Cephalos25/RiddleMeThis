@@ -4,6 +4,7 @@ package com.example.riddlemethis;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,12 +55,12 @@ public class ResetPasswordFragment extends Fragment {
     private void setListeners() {
         buttonRememberPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 Backendless.UserService.restorePassword(inputEmail.getText().toString(),
                         new AsyncCallback<Void>() {
                     @Override
                     public void handleResponse(Void response) {
-
+                        Navigation.findNavController(v).navigate(R.id.action_resetPasswordFragment_to_resetSuccessFragment);
                     }
 
                     @Override

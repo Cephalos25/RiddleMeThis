@@ -38,7 +38,7 @@
         <action
             android:id="@+id/action_global_discoverFragment"
             app:destination="@id/discoverFragment"
-            app:popUpTo="@+id/loginFragment"
+            app:popUpTo="@+id/loginGraph"
             app:popUpToInclusive="true" />
         <fragment
             android:id="@+id/resetPasswordFragment"
@@ -50,12 +50,27 @@
                 app:destination="@id/loginFragment"
                 app:popUpTo="@+id/loginFragment"
                 app:popUpToInclusive="true" />
+            <action
+                android:id="@+id/action_resetPasswordFragment_to_resetSuccessFragment"
+                app:destination="@id/resetSuccessFragment"
+                app:popUpToInclusive="false" />
         </fragment>
         <action
             android:id="@+id/action_loginGraph_myRiddlesFragment"
             app:destination="@id/myRiddlesFragment"
-            app:popUpTo="@+id/loginFragment"
+            app:popUpTo="@+id/loginGraph"
             app:popUpToInclusive="true" />
+        <fragment
+            android:id="@+id/resetSuccessFragment"
+            android:name="com.example.riddlemethis.ResetSuccessFragment"
+            android:label="fragment_reset_success"
+            tools:layout="@layout/fragment_reset_success" >
+            <action
+                android:id="@+id/action_resetSuccessFragment_to_loginFragment"
+                app:destination="@id/loginFragment"
+                app:popUpTo="@+id/loginFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
     </navigation>
     <action
         android:id="@+id/action_global_loginGraph"
