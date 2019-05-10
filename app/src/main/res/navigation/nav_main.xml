@@ -79,5 +79,27 @@
         android:id="@+id/myRiddlesFragment"
         android:name="com.example.riddlemethis.MyRiddlesFragment"
         android:label="fragment_myriddles"
-        tools:layout="@layout/fragment_myriddles" />
+        tools:layout="@layout/fragment_myriddles" >
+        <action
+            android:id="@+id/action_myRiddlesFragment_to_viewMyRiddleFragment"
+            app:destination="@id/viewMyRiddleFragment" />
+        <action
+            android:id="@+id/action_myRiddlesFragment_to_createRiddleFragment"
+            app:destination="@id/createRiddleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="com.example.riddlemethis.MyAccountFragment"
+        android:label="fragment_my_account"
+        tools:layout="@layout/fragment_my_account" />
+    <fragment
+        android:id="@+id/viewMyRiddleFragment"
+        android:name="com.example.riddlemethis.ViewMyRiddleFragment"
+        android:label="fragment_viewmyriddle"
+        tools:layout="@layout/fragment_viewmyriddle" />
+    <fragment
+        android:id="@+id/createRiddleFragment"
+        android:name="com.example.riddlemethis.CreateRiddleFragment"
+        android:label="fragment_create_riddle"
+        tools:layout="@layout/fragment_create_riddle" />
 </navigation>
