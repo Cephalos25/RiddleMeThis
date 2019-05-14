@@ -56,8 +56,8 @@ public class MyAccountFragment extends Fragment {
         buttonLogout = rootView.findViewById(R.id.button_myAccount_logout);
         textViewError = rootView.findViewById(R.id.textView_myAccount_error);
 
-        textViewUsername.setText((String) model.getLoggedInUser().getProperty("username"));
-        textViewEmail.setText(model.getLoggedInUser().getEmail());
+        textViewUsername.setText((String) Backendless.UserService.CurrentUser().getProperty("username"));
+        textViewEmail.setText(Backendless.UserService.CurrentUser().getEmail());
 
         setListeners();
 
