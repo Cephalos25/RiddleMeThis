@@ -10,6 +10,7 @@
         android:name="com.example.riddlemethis.DiscoverFragment"
         android:label="fragment_discover"
         tools:layout="@layout/fragment_discover" />
+  
     <navigation android:id="@+id/loginGraph"
         app:startDestination="@id/loginFragment">
         <fragment
