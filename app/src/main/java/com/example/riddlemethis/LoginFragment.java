@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment {
                 Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
                     @Override
                     public void handleResponse(BackendlessUser response) {
-                        model.setLoggedInUser(response);
+
                     }
 
                     @Override

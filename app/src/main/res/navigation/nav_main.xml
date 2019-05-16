@@ -91,7 +91,17 @@
         android:id="@+id/myAccountFragment"
         android:name="com.example.riddlemethis.MyAccountFragment"
         android:label="fragment_my_account"
-        tools:layout="@layout/fragment_my_account" />
+        tools:layout="@layout/fragment_my_account" >
+        <action
+            android:id="@+id/action_myAccountFragment_to_myRiddlesFragment"
+            app:destination="@id/myRiddlesFragment" />
+        <action
+            android:id="@+id/action_myAccountFragment_to_discoverFragment"
+            app:destination="@id/discoverFragment" />
+        <action
+            android:id="@+id/action_myAccountFragment_to_loginGraph"
+            app:destination="@id/loginGraph" />
+    </fragment>
     <fragment
         android:id="@+id/viewMyRiddleFragment"
         android:name="com.example.riddlemethis.ViewMyRiddleFragment"
