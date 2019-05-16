@@ -18,11 +18,8 @@ import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
-
-public class ViewMyRiddlesFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class ViewMyRiddleFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 private TextView textViewRiddleTitle;
 private TextView textViewRiddleText;
 private Button buttonDelete;
@@ -32,10 +29,12 @@ private TextView textViewRiddleAnswer;
 private EditText editTextRiddle;
 private EditText editTextAnswer;
 private Button buttonSave;
+private Button buttonRevealHint;
+
 
 private Switch switchRevealAnswer;
 
-    public ViewMyRiddlesFragment() {
+    public ViewMyRiddleFragment() {
         // Required empty public constructor
     }
 
@@ -44,7 +43,7 @@ private Switch switchRevealAnswer;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragmentwireWidgets();
-        View rootView = inflater.inflate(R.layout.fragment_view_my_riddles, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_view_my_riddle, container, false);
         wireWidgets(rootView);
         setListeners();
         populateFragment();
@@ -61,6 +60,7 @@ private Switch switchRevealAnswer;
         switchRevealAnswer.setOnCheckedChangeListener(this);
         buttonDelete.setOnClickListener(this);
         buttonEdit.setOnClickListener(this);
+        buttonRevealHint.setOnClickListener(this);
     }
 
     private void wireWidgets(View view) {
@@ -77,6 +77,7 @@ private Switch switchRevealAnswer;
         editTextRiddle = view.findViewById(R.id.edittext_myriddlepopup_riddle);
 
         buttonSave = view.findViewById(R.id.button_myriddlepopup_save);
+        buttonRevealHint = view.findViewById(R.id.button_viewmyriddlefragment_viewhint);    
     }
 
 
@@ -84,17 +85,21 @@ private Switch switchRevealAnswer;
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.button_viewmyriddles_edit:
-                //TODO create edit riddle capability
                 editRiddle(v);
             case R.id.button_viewmyriddles_delete:
                 //TODO create delete riddle capability
                 deleteRiddle();
+            case R.id.button_viewmyriddlefragment_viewhint:
+                //TODO create the view hint capability
+                viewHint();
 
 
         }
 
     }
 
+    private void viewHint() {
+    }
 
 
     private void deleteRiddle() {

@@ -25,4 +25,9 @@
     <string name="riddleTitle">Riddle:</string>
     <string name="answer">TextView</string>
     <string name="reveal_answer">Reveal Answer</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="createdriddle">Riddle</string>
+    <string name="createdanswer">Answer</string>
+    <string name="button">Button</string>
 </resources>

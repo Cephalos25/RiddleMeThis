@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewMyRiddlesFragment" >
+    tools:context=".ViewMyRiddleFragment" >
 
     <TextView
         android:id="@+id/textview_viewfragment_riddle"
@@ -54,11 +54,9 @@
         android:id="@+id/switch_viewfragment_reveal"
         android:layout_width="157dp"
         android:layout_height="56dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
         android:text="@string/reveal_answer"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_viewfragment_riddle" />
 
@@ -69,7 +67,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Edit"
+        android:text="@string/edit"
         app:layout_constraintBottom_toTopOf="@+id/textview_viewfragment_riddle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -82,10 +80,24 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Delete"
+        android:text="@string/delete"
         app:layout_constraintBottom_toTopOf="@+id/textview_viewfragment_riddle"
         app:layout_constraintEnd_toStartOf="@+id/textview_viewfragment_riddletitle"
         app:layout_constraintStart_toEndOf="@+id/button_viewmyriddles_edit"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_viewmyriddlefragment_viewhint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="View Hint"
+        app:layout_constraintBottom_toTopOf="@+id/textview_viewfragment_answer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/switch_viewfragment_reveal"
+        app:layout_constraintTop_toBottomOf="@+id/textview_viewfragment_riddle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
