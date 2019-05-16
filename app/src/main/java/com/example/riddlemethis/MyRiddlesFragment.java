@@ -27,7 +27,6 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void populateListView() {
-
     }
 
     private void setListeners() {
