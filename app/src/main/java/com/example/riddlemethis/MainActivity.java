@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         else if(id==R.id.nav_ownriddles){
             newFragmentId = R.id.loginFragment;
         }
-        else if(id==R.id.nav_create){
+        else if(id==R.id.nav_login){
             newFragmentId = R.id.createAccountFragment;
         }
 
