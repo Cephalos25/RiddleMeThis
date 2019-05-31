@@ -3,7 +3,9 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -19,9 +21,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+@LoginSection
 public class CreateAccountFragment extends Fragment {
 
     private EditText usernameField;
@@ -33,10 +33,18 @@ public class CreateAccountFragment extends Fragment {
     private TextView textViewError;
     private View rootView;
 
+    private SharedViewModel model;
+
     public CreateAccountFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(CreateAccountFragment.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

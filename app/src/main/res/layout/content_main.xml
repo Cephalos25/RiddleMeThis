@@ -9,7 +9,7 @@
     tools:showIn="@layout/app_bar_main">
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/fragment_mainactivity_navview"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="395dp"
         android:layout_height="659dp"
