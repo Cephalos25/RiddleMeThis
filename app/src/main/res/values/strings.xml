@@ -22,4 +22,8 @@
     <string name="resetpassword_remember"><u>Remember Your Password?</u></string>
     <string name="all_fault">Error Code %s: %s</string>
     <string name="myAccount_email">Email: %s</string>
+    <string name="riddle">riddle</string>
+    <string name="riddleTitle">Riddle:</string>
+    <string name="answer">TextView</string>
+    <string name="reveal_answer">Reveal Answer</string>
 </resources>

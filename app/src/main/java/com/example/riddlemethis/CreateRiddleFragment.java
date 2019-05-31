@@ -1,6 +1,5 @@
 package com.example.riddlemethis;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -27,6 +26,11 @@ public class CreateRiddleFragment extends Fragment {
         model.setCurrentFragment(CreateRiddleFragment.class);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

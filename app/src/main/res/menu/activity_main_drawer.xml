@@ -15,6 +15,7 @@
             android:id="@+id/menuitem_nav_saved"
             android:icon="@drawable/ic_menu_saved"
             android:title="Saved Riddles"/>
+
         <item
             android:id="@+id/menuitem_nav_login"
             android:icon="@drawable/ic_menu_login"
