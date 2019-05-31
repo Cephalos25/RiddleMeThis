@@ -25,9 +25,6 @@ import com.backendless.persistence.LoadRelationsQueryBuilder;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SavedRiddlesFragment extends Fragment {
 
     private List<Riddle> savedRiddles;
@@ -36,7 +33,7 @@ public class SavedRiddlesFragment extends Fragment {
     private ProgressBar progressBar;
     private View rootView;
 
-    private ViewRiddleViewModel model;
+    private SharedViewModel model;
 
     public SavedRiddlesFragment() {
         // Required empty public constructor
@@ -45,7 +42,8 @@ public class SavedRiddlesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(getActivity()).get(ViewRiddleViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(SavedRiddlesFragment.class);
     }
 
     @Override

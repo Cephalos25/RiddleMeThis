@@ -19,13 +19,10 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MyAccountFragment extends Fragment {
 
 
-    private ViewRiddleViewModel model;
+    private SharedViewModel model;
 
     private View rootView;
     private TextView textViewUsername;
@@ -41,7 +38,8 @@ public class MyAccountFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(getActivity()).get(ViewRiddleViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(MyAccountFragment.class);
     }
 
     @Override

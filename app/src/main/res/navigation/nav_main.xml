@@ -81,7 +81,7 @@
             app:popUpTo="@+id/loginGraph"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_global_myAccountFragment"
+            android:id="@+id/action_loginGraph_to_myAccountFragment"
             app:destination="@id/myAccountFragment"
             app:popUpTo="@+id/loginGraph"
             app:popUpToInclusive="true" />
