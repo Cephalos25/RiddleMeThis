@@ -5,11 +5,15 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.backendless.Backendless;
@@ -28,9 +32,11 @@ public class SavedRiddlesFragment extends Fragment {
 
     private List<Riddle> savedRiddles;
 
-    private RecyclerView savedRiddlesView;
+    private ListView savedRiddlesView;
     private ProgressBar progressBar;
     private View rootView;
+
+    private ViewRiddleViewModel model;
 
     public SavedRiddlesFragment() {
         // Required empty public constructor
@@ -39,7 +45,7 @@ public class SavedRiddlesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadSavedRiddles();
+        model = ViewModelProviders.of(getActivity()).get(ViewRiddleViewModel.class);
     }
 
     @Override
@@ -49,14 +55,31 @@ public class SavedRiddlesFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_saved_riddles, container, false);
         progressBar = rootView.findViewById(R.id.progressBar_savedRiddles_progress);
         savedRiddlesView = rootView.findViewById(R.id.recyclerView_savedRiddles_listView);
-        savedRiddlesView.setVisibility(View.GONE);
+        savedRiddlesView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+
+        setListeners();
 
         return rootView;
+    }
+
+    private void setListeners() {
+        savedRiddlesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle args = new Bundle();
+                args.putParcelable("riddle", savedRiddles.get(position));
+                args.putBoolean("isDiscovered", false);
+                Navigation.findNavController(parent).navigate(R.id.action_savedRiddlesFragment_to_viewRiddleFragment,
+                        args);
+            }
+        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        loadSavedRiddles();
     }
 
     private void loadSavedRiddles() {
@@ -69,6 +92,8 @@ public class SavedRiddlesFragment extends Fragment {
                     @Override
                     public void handleResponse(List<Riddle> response) {
                         savedRiddles = response;
+                        savedRiddlesView.setAdapter(new SavedRiddlesAdapter(getContext(),
+                                savedRiddles));
                         progressBar.setVisibility(View.INVISIBLE);
                         savedRiddlesView.setVisibility(View.VISIBLE);
                     }

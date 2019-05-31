@@ -25,7 +25,7 @@ import com.backendless.exceptions.BackendlessFault;
 public class MyAccountFragment extends Fragment {
 
 
-    private SharedViewModel model;
+    private ViewRiddleViewModel model;
 
     private View rootView;
     private TextView textViewUsername;
@@ -41,7 +41,7 @@ public class MyAccountFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(ViewRiddleViewModel.class);
     }
 
     @Override

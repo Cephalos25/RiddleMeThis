@@ -118,6 +118,12 @@
         <action
             android:id="@+id/action_viewRiddleFragment_to_savedRiddlesFragment"
             app:destination="@id/savedRiddlesFragment" />
+        <argument
+            android:name="riddle"
+            app:argType="com.example.riddlemethis.Riddle" />
+        <argument
+            android:name="isDiscovered"
+            app:argType="boolean" />
     </fragment>
     <navigation android:id="@+id/myRiddlesGraph"
         app:startDestination="@id/myRiddlesFragment">
@@ -171,6 +177,6 @@
         android:id="@+id/action_global_savedRiddlesFragment"
         app:destination="@id/savedRiddlesFragment" />
     <action
-        android:id="@+id/action_global_myAccountFragment2"
+        android:id="@+id/action_global_myAccountFragment"
         app:destination="@id/myAccountFragment" />
 </navigation>

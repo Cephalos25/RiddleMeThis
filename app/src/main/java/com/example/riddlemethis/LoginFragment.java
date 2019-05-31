@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -35,7 +34,7 @@ public class LoginFragment extends Fragment {
     private TextView buttonCreateAccount;
     private View rootView;
 
-    private SharedViewModel model;
+    private ViewRiddleViewModel model;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -44,7 +43,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(ViewRiddleViewModel.class);
     }
 
     @Override

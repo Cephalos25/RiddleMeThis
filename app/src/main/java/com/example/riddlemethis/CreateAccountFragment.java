@@ -19,9 +19,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+@LoginSection
 public class CreateAccountFragment extends Fragment {
 
     private EditText usernameField;

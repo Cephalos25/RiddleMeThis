@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+@LoginSection
 public class ResetSuccessFragment extends Fragment {
 
     private Button buttonBack;
