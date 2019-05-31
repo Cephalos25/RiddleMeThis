@@ -3,7 +3,9 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -19,9 +21,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+@LoginSection
 public class ResetPasswordFragment extends Fragment {
     public static final String TAG = "ResetPasswordFragment";
 
@@ -31,10 +31,18 @@ public class ResetPasswordFragment extends Fragment {
     private TextView buttonRememberPassword;
     private TextView textViewError;
 
+    private SharedViewModel model;
+
     public ResetPasswordFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(ResetPasswordFragment.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

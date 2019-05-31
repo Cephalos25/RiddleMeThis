@@ -5,8 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +22,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+@LoginSection
 public class LoginFragment extends Fragment {
 
     private EditText emailField;
@@ -45,6 +43,7 @@ public class LoginFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(LoginFragment.class);
     }
 
     @Override
@@ -68,14 +67,14 @@ public class LoginFragment extends Fragment {
     private void setListeners() {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
                 boolean stayLoggedIn = checkStayLogged.isChecked();
                 Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
                     @Override
                     public void handleResponse(BackendlessUser response) {
-
+                        Navigation.findNavController(v).navigate(R.id.action_loginGraph_myRiddlesGraph);
                     }
 
                     @Override
