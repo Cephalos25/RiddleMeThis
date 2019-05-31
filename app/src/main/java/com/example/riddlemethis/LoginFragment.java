@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -22,9 +21,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+@LoginSection
 public class LoginFragment extends Fragment {
 
     private EditText emailField;
@@ -45,6 +42,7 @@ public class LoginFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(LoginFragment.class);
     }
 
     @Override
