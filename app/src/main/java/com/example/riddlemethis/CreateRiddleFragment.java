@@ -1,10 +1,10 @@
 package com.example.riddlemethis;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,29 +15,30 @@ import android.widget.EditText;
 
 public class CreateRiddleFragment extends Fragment implements View.OnClickListener {
 
-
-
-
     private Button buttonSaveRiddle;
     private EditText editTextRiddle;
     private EditText editTextAnswer;
     private EditText editTextHint;
 
-
-
+    private SharedViewModel model;
 
     public CreateRiddleFragment() {
         // Required empty public constructor
     }
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(CreateRiddleFragment.class);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-
+  
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,8 +71,4 @@ public class CreateRiddleFragment extends Fragment implements View.OnClickListen
 
     private void saveRiddle() {
     }
-
-
-
-
 }

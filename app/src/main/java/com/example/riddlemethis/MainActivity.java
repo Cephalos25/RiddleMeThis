@@ -19,14 +19,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String TAG = "MainActivity";
+    public static final String BACKENDLESS_TAG = "Backendless";
+
+    private View navHostFragment;
+
+    private SharedViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Backendless.initApp(this, "88F61704-EB84-2DDB-FFA9-9D248EEC5000",
                 "2C84CAE4-48E0-0D8D-FFC3-C79C21CB3600");
+        model = ViewModelProviders.of(this).get(SharedViewModel.class);
+        navHostFragment = findViewById(R.id.fragment_mainactivity_navview);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -85,27 +92,42 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        int newFragmentId = -1;
-        if(id==R.id.nav_discover){
-            newFragmentId = R.id.discoverFragment;
-        }
-        else if(id==R.id.nav_ownriddles){
-            newFragmentId = R.id.loginFragment;
-        }
-        else if(id==R.id.nav_login){
-            newFragmentId = R.id.createAccountFragment;
-        }
 
-        if(id!=-1) {
-            NavHostFragment hostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-            hostFragment.getNavController().navigate(newFragmentId);
-        }
+        switch (id) {
+            case R.id.menuitem_nav_discover:
+                if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_discoverFragment);
+                } else {
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_discoverFragment2);
+                }
+            case R.id.menuitem_nav_login:
+                if(Backendless.UserService.CurrentUser() == null) {
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_loginGraph);
+                } else {
 
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_myAccountFragment);
+                }
+            case R.id.menuitem_nav_ownriddles:
+                if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_myRiddlesGraph);
+                } else {
+                    if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
+                        Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_myAccountFragment);
+                    } else {
+                        Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myAccountFragment);
+                    }
+                }
+            case R.id.menuitem_nav_saved:
+                if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)) {
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_savedRiddlesFragment);
+                } else {
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_savedRiddlesFragment);
+                }
+        }
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

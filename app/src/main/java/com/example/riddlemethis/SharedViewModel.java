@@ -1,18 +1,16 @@
 package com.example.riddlemethis;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 
-import com.backendless.BackendlessUser;
-
 public class SharedViewModel extends ViewModel {
-    private BackendlessUser loggedInUser;
+    private Class<? extends Fragment> currentFragment;
 
-
-    public BackendlessUser getLoggedInUser() {
-        return loggedInUser;
+    public Class<? extends Fragment> getCurrentFragment() {
+        return currentFragment;
     }
 
-    public void setLoggedInUser(BackendlessUser loggedInUser) {
-        this.loggedInUser = loggedInUser;
+    public void setCurrentFragment(Class<? extends Fragment> currentFragment) {
+        this.currentFragment = currentFragment;
     }
 }

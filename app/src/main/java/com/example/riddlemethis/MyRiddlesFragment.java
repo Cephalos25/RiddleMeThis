@@ -1,6 +1,9 @@
 package com.example.riddlemethis;
 
 import android.os.Bundle;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,9 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
     private List<Riddle> myRiddlesList;
     private ListView myRiddlesListView;
     private Button buttonCreateNewRiddle;
+  
+    private SharedViewModel model;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -34,7 +40,6 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         wireWidgets(rootView);
         setListeners();
         populateListView();
-
         return rootView;
     }
 
@@ -58,8 +63,15 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         });
     }
 
-    private void populateListView() {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.setCurrentFragment(MyRiddlesFragment.class);
+    }
+        
 
+    private void populateListView() {
     }
 
     private void setListeners() {
