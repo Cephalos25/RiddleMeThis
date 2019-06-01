@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,19 +23,21 @@ import android.widget.TextView;
 
 
 public class ViewMyRiddleFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-private TextView textViewRiddleTitle;
-private TextView textViewRiddleText;
-private Button buttonDelete;
-private Button buttonEdit;
-private TextView textViewRiddleAnswer;
+    private TextView textViewRiddleTitle;
+    private TextView textViewRiddleText;
+    private Button buttonDelete;
+    private Button buttonEdit;
+    private TextView textViewRiddleAnswer;
+    private Button buttonBack;
 
-private EditText editTextRiddle;
-private EditText editTextAnswer;
-private Button buttonSave;
-private Button buttonRevealHint;
-private Switch switchRevealAnswer;
+    private EditText editTextRiddle;
+    private EditText editTextAnswer;
+    private Button buttonSave;
+    private Button buttonRevealHint;
+    private Switch switchRevealAnswer;
   
-private SharedViewModel model;
+    private SharedViewModel model;
+    private Riddle riddle;
   
     public ViewMyRiddleFragment() {
         // Required empty public constructor
@@ -45,6 +48,7 @@ private SharedViewModel model;
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         model.setCurrentFragment(ViewMyRiddleFragment.class);
+        riddle = getArguments().getParcelable("riddle");
     }
 
     @Override
@@ -58,9 +62,11 @@ private SharedViewModel model;
     }
 
     private void populateFragment() {
-        //TODO receive riddle from selected choice in MyRiddlesFragment or
-        // DiscoverRiddlesFragment and populate the textviews
-
+        textViewRiddleTitle.setText(riddle.getName().concat(":"));
+        textViewRiddleText.setText(riddle.getText());
+        textViewRiddleAnswer.setText(riddle.getCorrectAnswer());
+        editTextRiddle.setText(riddle.getText());
+        editTextAnswer.setText(riddle.getCorrectAnswer());
     }
 
     private void setListeners() {
@@ -68,6 +74,12 @@ private SharedViewModel model;
         buttonDelete.setOnClickListener(this);
         buttonEdit.setOnClickListener(this);
         buttonRevealHint.setOnClickListener(this);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
+            }
+        });
     }
 
     private void wireWidgets(View view) {
@@ -84,7 +96,9 @@ private SharedViewModel model;
         editTextRiddle = view.findViewById(R.id.edittext_myriddlepopup_riddle);
 
         buttonSave = view.findViewById(R.id.button_myriddlepopup_save);
-        buttonRevealHint = view.findViewById(R.id.button_viewmyriddlefragment_viewhint);    
+        buttonRevealHint = view.findViewById(R.id.button_viewmyriddlefragment_viewhint);
+
+        buttonBack = view.findViewById(R.id.button_viewmyriddle_back);
     }
 
 
@@ -99,17 +113,26 @@ private SharedViewModel model;
             case R.id.button_viewmyriddlefragment_viewhint:
                 //TODO create the view hint capability
                 viewHint();
-
+            case R.id.button_myriddlepopup_save:
+                saveRiddle();
 
         }
 
     }
 
+    private void saveRiddle() {
+        //Add saving code here
+        Navigation.findNavController(buttonSave).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
+    }
+
     private void viewHint() {
+
     }
 
 
     private void deleteRiddle() {
+        //Add deleting code here
+        Navigation.findNavController(buttonDelete).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
     }
 
     private void editRiddle(View v) {
@@ -152,10 +175,10 @@ private SharedViewModel model;
     }
 
     private void hideAnswer() {
-        textViewRiddleAnswer.setTextColor(0xfff);
+        textViewRiddleAnswer.setVisibility(View.INVISIBLE);
     }
 
     private void revealAnswer() {
-        textViewRiddleAnswer.setTextColor(0000);
+        textViewRiddleAnswer.setVisibility(View.VISIBLE);
     }
 }

@@ -14,6 +14,10 @@ public class Riddle implements Parcelable {
         this.correctAnswer = correctAnswer;
     }
 
+    public Riddle() {
+
+    }
+
     protected Riddle(Parcel in) {
         name = in.readString();
         text = in.readString();

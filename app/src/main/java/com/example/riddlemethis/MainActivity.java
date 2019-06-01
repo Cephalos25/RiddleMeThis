@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.backendless.Backendless;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.View;
 
@@ -29,6 +28,10 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = "MainActivity";
     public static final String BACKENDLESS_TAG = "Backendless";
 
+    private DrawerLayout drawerLayout;
+    private NavigationView drawer;
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
     private View navHostFragment;
 
     private SharedViewModel model;
@@ -40,31 +43,40 @@ public class MainActivity extends AppCompatActivity
         Backendless.initApp(this, "88F61704-EB84-2DDB-FFA9-9D248EEC5000",
                 "2C84CAE4-48E0-0D8D-FFC3-C79C21CB3600");
         model = ViewModelProviders.of(this).get(SharedViewModel.class);
-        navHostFragment = findViewById(R.id.fragment_mainactivity_navview);
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                toggleDrawer();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        drawer.setNavigationItemSelectedListener(this);
+    }
+
+    private void wireWidgets() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        fab = findViewById(R.id.fab);
+        navHostFragment = findViewById(R.id.fragment_mainactivity_navview);
+    }
+
+    private void toggleDrawer() {
+        if(drawerLayout.isDrawerOpen(drawer)) {
+            drawerLayout.closeDrawer(drawer);
+        } else {
+            drawerLayout.openDrawer(drawer);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -128,10 +140,7 @@ public class MainActivity extends AppCompatActivity
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_savedRiddlesFragment);
                 }
         }
-
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }

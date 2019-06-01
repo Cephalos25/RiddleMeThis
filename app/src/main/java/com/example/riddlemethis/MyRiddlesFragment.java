@@ -20,10 +20,8 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
-import com.backendless.servercode.annotation.BackendlessGrantAccess;
 
 import java.util.List;
-import java.util.prefs.BackingStoreException;
 
 public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
