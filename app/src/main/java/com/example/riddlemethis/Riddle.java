@@ -4,11 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Riddle implements Parcelable {
+    private String objectId;
     private String name;
     private String text;
     private String correctAnswer;
 
-    public Riddle(String name, String text, String correctAnswer) {
+    public Riddle(String objectId, String name, String text, String correctAnswer) {
+        this.objectId = objectId;
         this.name = name;
         this.text = text;
         this.correctAnswer = correctAnswer;
@@ -19,6 +21,7 @@ public class Riddle implements Parcelable {
     }
 
     protected Riddle(Parcel in) {
+        objectId = in.readString();
         name = in.readString();
         text = in.readString();
         correctAnswer = in.readString();
@@ -26,6 +29,7 @@ public class Riddle implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(objectId);
         dest.writeString(name);
         dest.writeString(text);
         dest.writeString(correctAnswer);
@@ -47,6 +51,14 @@ public class Riddle implements Parcelable {
             return new Riddle[size];
         }
     };
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
 
     public String getName() {
         return name;

@@ -21,6 +21,10 @@ import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+
 
 public class ViewMyRiddleFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private TextView textViewRiddleTitle;
@@ -121,8 +125,18 @@ public class ViewMyRiddleFragment extends Fragment implements View.OnClickListen
     }
 
     private void saveRiddle() {
-        //Add saving code here
-        Navigation.findNavController(buttonSave).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
+        Backendless.Persistence.of(Riddle.class).save(riddle, new AsyncCallback<Riddle>() {
+            @Override
+            public void handleResponse(Riddle response) {
+                textViewRiddleText.setText(response.getText());
+                textViewRiddleAnswer.setText(response.getCorrectAnswer());
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
     }
 
     private void viewHint() {
@@ -131,8 +145,17 @@ public class ViewMyRiddleFragment extends Fragment implements View.OnClickListen
 
 
     private void deleteRiddle() {
-        //Add deleting code here
-        Navigation.findNavController(buttonDelete).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
+        Backendless.Persistence.of(Riddle.class).remove(riddle, new AsyncCallback<Long>() {
+            @Override
+            public void handleResponse(Long response) {
+                Navigation.findNavController(buttonDelete).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
     }
 
     private void editRiddle(View v) {
@@ -152,10 +175,8 @@ public class ViewMyRiddleFragment extends Fragment implements View.OnClickListen
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(buttonDelete.isPressed()){
-                    textViewRiddleAnswer.setText(editTextAnswer.getText());
-                    textViewRiddleText.setText(editTextRiddle.getText());
-                    popupWindow.dismiss();
+                popupWindow.dismiss();
+                if(!buttonSave.isPressed()){
                     return true;
                 }
                 return false;
