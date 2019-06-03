@@ -67,6 +67,7 @@ public class ViewRiddleFragment extends Fragment {
         wireWidgets();
         showAnswer.setChecked(false);
         setLoadingVisibility();
+        setListeners();
         return rootView;
     }
 
