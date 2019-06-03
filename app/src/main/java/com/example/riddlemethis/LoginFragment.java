@@ -3,9 +3,11 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.backendless.exceptions.BackendlessFault;
 @LoginSection
 public class LoginFragment extends Fragment {
 
+    private static final String TAG = LoginFragment.class.getSimpleName();
     private EditText emailField;
     private EditText passwordField;
     private Button buttonLogin;
@@ -34,10 +37,6 @@ public class LoginFragment extends Fragment {
     private View rootView;
 
     private SharedViewModel model;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +50,8 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
+        wireWidgets();
+        setListeners();
         return rootView;
     }
 
@@ -79,11 +79,22 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
-
+                        Log.e(TAG, "handleFault: " + fault.getMessage());
                     }
                 }, stayLoggedIn);
             }
         });
+        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_createAccountFragment);
+            }
+        });
+        buttonForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_resetPasswordFragment);
+            }
+        });
     }
-
 }
