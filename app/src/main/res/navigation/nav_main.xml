@@ -154,8 +154,11 @@
                 android:label="fragment_viewmyriddle"
                 tools:layout="@layout/fragment_view_my_riddle">
             <action
-                    android:id="@+id/action_viewMyRiddleFragment_to_myRiddlesFragment"
-                    app:destination="@id/myRiddlesFragment"/>
+                android:id="@+id/action_viewMyRiddleFragment_to_myRiddlesFragment"
+                app:destination="@id/myRiddlesFragment" />
+            <argument
+                android:name="riddle"
+                app:argType="com.example.riddlemethis.Riddle" />
         </fragment>
     </navigation>
     <fragment

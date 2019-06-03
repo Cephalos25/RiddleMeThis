@@ -37,12 +37,19 @@ public class LoginFragment extends Fragment {
     private View rootView;
 
     private SharedViewModel model;
+    private OnLoginFragmentInteractionListener activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         model.setCurrentFragment(LoginFragment.class);
+        if(getActivity() instanceof OnLoginFragmentInteractionListener) {
+            activity = (OnLoginFragmentInteractionListener) getActivity();
+        } else {
+            throw new IllegalStateException("Activity must implement " +
+                    "OnLoginFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -75,6 +82,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void handleResponse(BackendlessUser response) {
                         Log.d(TAG, "handleResponse: " + response.getEmail() + " successfully logged in.");
+                        activity.onLoginAttempt();
                         Navigation.findNavController(v).navigate(R.id.action_loginGraph_myRiddlesGraph);
                     }
 
@@ -97,5 +105,9 @@ public class LoginFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_resetPasswordFragment);
             }
         });
+    }
+  
+    public interface OnLoginFragmentInteractionListener {
+        public void onLoginAttempt();
     }
 }
