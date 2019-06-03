@@ -1,182 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_main"
-    app:startDestination="@id/discoverFragment">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_main"
+            app:startDestination="@id/discoverFragment">
 
     <fragment
-        android:id="@+id/discoverFragment"
-        android:name="com.example.riddlemethis.DiscoverFragment"
-        android:label="fragment_discover"
-        tools:layout="@layout/fragment_discover" >
+            android:id="@+id/discoverFragment"
+            android:name="com.example.riddlemethis.DiscoverFragment"
+            android:label="fragment_discover"
+            tools:layout="@layout/fragment_discover">
         <action
-            android:id="@+id/action_discoverFragment_to_viewRiddleFragment"
-            app:destination="@id/viewRiddleFragment" />
+                android:id="@+id/action_discoverFragment_to_viewRiddleFragment"
+                app:destination="@id/viewRiddleFragment"/>
     </fragment>
     <navigation android:id="@+id/loginGraph"
-        app:startDestination="@id/loginFragment">
+                app:startDestination="@id/loginFragment">
         <fragment
-            android:id="@+id/createAccountFragment"
-            android:name="com.example.riddlemethis.CreateAccountFragment"
-            android:label="fragment_create_account"
-            tools:layout="@layout/fragment_create_account" >
+                android:id="@+id/createAccountFragment"
+                android:name="com.example.riddlemethis.CreateAccountFragment"
+                android:label="fragment_create_account"
+                tools:layout="@layout/fragment_create_account">
             <action
-                android:id="@+id/action_createAccountFragment_to_loginFragment"
-                app:destination="@id/loginFragment"
-                app:popUpTo="@+id/loginFragment"
-                app:popUpToInclusive="true" />
+                    android:id="@+id/action_createAccountFragment_to_loginFragment"
+                    app:destination="@id/loginFragment"
+                    app:popUpTo="@+id/loginFragment"
+                    app:popUpToInclusive="true"/>
         </fragment>
         <fragment
-            android:id="@+id/loginFragment"
-            android:name="com.example.riddlemethis.LoginFragment"
-            android:label="fragment_login"
-            tools:layout="@layout/fragment_login" >
+                android:id="@+id/loginFragment"
+                android:name="com.example.riddlemethis.LoginFragment"
+                android:label="fragment_login"
+                tools:layout="@layout/fragment_login">
             <action
-                android:id="@+id/action_loginFragment_to_createAccountFragment"
-                app:destination="@id/createAccountFragment" />
+                    android:id="@+id/action_loginFragment_to_createAccountFragment"
+                    app:destination="@id/createAccountFragment"/>
             <action
-                android:id="@+id/action_loginFragment_to_resetPasswordFragment"
-                app:destination="@id/resetPasswordFragment" />
+                    android:id="@+id/action_loginFragment_to_resetPasswordFragment"
+                    app:destination="@id/resetPasswordFragment"/>
         </fragment>
         <action
-            android:id="@+id/action_loginGraph_to_discoverFragment"
-            app:destination="@id/discoverFragment"
-            app:popUpTo="@+id/loginGraph"
-            app:popUpToInclusive="true" />
+                android:id="@+id/action_loginGraph_to_discoverFragment"
+                app:destination="@id/discoverFragment"
+                app:popUpTo="@+id/loginGraph"
+                app:popUpToInclusive="true"/>
         <fragment
-            android:id="@+id/resetPasswordFragment"
-            android:name="com.example.riddlemethis.ResetPasswordFragment"
-            android:label="fragment_reset_password"
-            tools:layout="@layout/fragment_reset_password" >
+                android:id="@+id/resetPasswordFragment"
+                android:name="com.example.riddlemethis.ResetPasswordFragment"
+                android:label="fragment_reset_password"
+                tools:layout="@layout/fragment_reset_password">
             <action
-                android:id="@+id/action_resetPasswordFragment_to_loginFragment"
-                app:destination="@id/loginFragment"
-                app:popUpTo="@+id/loginFragment"
-                app:popUpToInclusive="true" />
+                    android:id="@+id/action_resetPasswordFragment_to_loginFragment"
+                    app:destination="@id/loginFragment"
+                    app:popUpTo="@+id/loginFragment"
+                    app:popUpToInclusive="true"/>
             <action
-                android:id="@+id/action_resetPasswordFragment_to_resetSuccessFragment"
-                app:destination="@id/resetSuccessFragment"
-                app:popUpToInclusive="false" />
+                    android:id="@+id/action_resetPasswordFragment_to_resetSuccessFragment"
+                    app:destination="@id/resetSuccessFragment"
+                    app:popUpToInclusive="false"/>
         </fragment>
         <action
-            android:id="@+id/action_loginGraph_myRiddlesGraph"
-            app:destination="@id/myRiddlesGraph"
-            app:popUpTo="@+id/loginGraph"
-            app:popUpToInclusive="true" />
+                android:id="@+id/action_loginGraph_myRiddlesGraph"
+                app:destination="@id/myRiddlesGraph"
+                app:popUpTo="@+id/loginGraph"
+                app:popUpToInclusive="true"/>
         <fragment
-            android:id="@+id/resetSuccessFragment"
-            android:name="com.example.riddlemethis.ResetSuccessFragment"
-            android:label="fragment_reset_success"
-            tools:layout="@layout/fragment_reset_success" >
+                android:id="@+id/resetSuccessFragment"
+                android:name="com.example.riddlemethis.ResetSuccessFragment"
+                android:label="fragment_reset_success"
+                tools:layout="@layout/fragment_reset_success">
             <action
-                android:id="@+id/action_resetSuccessFragment_to_loginFragment"
-                app:destination="@id/loginFragment"
-                app:popUpTo="@+id/loginFragment"
-                app:popUpToInclusive="true" />
+                    android:id="@+id/action_resetSuccessFragment_to_loginFragment"
+                    app:destination="@id/loginFragment"
+                    app:popUpTo="@+id/loginFragment"
+                    app:popUpToInclusive="true"/>
         </fragment>
         <action
-            android:id="@+id/action_loginGraph_to_savedRiddlesFragment"
-            app:destination="@id/savedRiddlesFragment"
-            app:popUpTo="@+id/loginGraph"
-            app:popUpToInclusive="true" />
+                android:id="@+id/action_loginGraph_to_savedRiddlesFragment"
+                app:destination="@id/savedRiddlesFragment"
+                app:popUpTo="@+id/loginGraph"
+                app:popUpToInclusive="true"/>
         <action
-            android:id="@+id/action_loginGraph_to_myAccountFragment"
-            app:destination="@id/myAccountFragment"
-            app:popUpTo="@+id/loginGraph"
-            app:popUpToInclusive="true" />
+                android:id="@+id/action_loginGraph_to_myAccountFragment"
+                app:destination="@id/myAccountFragment"
+                app:popUpTo="@+id/loginGraph"
+                app:popUpToInclusive="true"/>
     </navigation>
     <action
-        android:id="@+id/action_global_loginGraph"
-        app:destination="@id/loginGraph" />
+            android:id="@+id/action_global_loginGraph"
+            app:destination="@id/loginGraph"/>
     <fragment
-        android:id="@+id/myAccountFragment"
-        android:name="com.example.riddlemethis.MyAccountFragment"
-        android:label="fragment_my_account"
-        tools:layout="@layout/fragment_my_account" >
+            android:id="@+id/myAccountFragment"
+            android:name="com.example.riddlemethis.MyAccountFragment"
+            android:label="fragment_my_account"
+            tools:layout="@layout/fragment_my_account">
         <action
-            android:id="@+id/action_myAccountFragment_to_myRiddlesGraph"
-            app:destination="@id/myRiddlesGraph" />
+                android:id="@+id/action_myAccountFragment_to_myRiddlesGraph"
+                app:destination="@id/myRiddlesGraph"/>
         <action
-            android:id="@+id/action_myAccountFragment_to_discoverFragment"
-            app:destination="@id/discoverFragment" />
+                android:id="@+id/action_myAccountFragment_to_discoverFragment"
+                app:destination="@id/discoverFragment"/>
         <action
-            android:id="@+id/action_myAccountFragment_to_loginGraph"
-            app:destination="@id/loginGraph" />
+                android:id="@+id/action_myAccountFragment_to_loginGraph"
+                app:destination="@id/loginGraph"/>
         <action
-            android:id="@+id/action_myAccountFragment_to_savedRiddlesFragment"
-            app:destination="@id/savedRiddlesFragment" />
+                android:id="@+id/action_myAccountFragment_to_savedRiddlesFragment"
+                app:destination="@id/savedRiddlesFragment"/>
     </fragment>
     <fragment
-        android:id="@+id/viewRiddleFragment"
-        android:name="com.example.riddlemethis.ViewRiddleFragment"
-        android:label="fragment_view_riddle"
-        tools:layout="@layout/fragment_view_riddle" >
+            android:id="@+id/viewRiddleFragment"
+            android:name="com.example.riddlemethis.ViewRiddleFragment"
+            android:label="fragment_view_riddle"
+            tools:layout="@layout/fragment_view_riddle">
         <action
-            android:id="@+id/action_viewRiddleFragment_to_discoverFragment"
-            app:destination="@id/discoverFragment" />
+                android:id="@+id/action_viewRiddleFragment_to_discoverFragment"
+                app:destination="@id/discoverFragment"/>
         <action
-            android:id="@+id/action_viewRiddleFragment_to_savedRiddlesFragment"
-            app:destination="@id/savedRiddlesFragment" />
+                android:id="@+id/action_viewRiddleFragment_to_savedRiddlesFragment"
+                app:destination="@id/savedRiddlesFragment"/>
         <argument
-            android:name="riddle"
-            app:argType="com.example.riddlemethis.Riddle" />
+                android:name="riddle"
+                app:argType="com.example.riddlemethis.Riddle"/>
         <argument
-            android:name="isDiscovered"
-            app:argType="boolean" />
+                android:name="isDiscovered"
+                app:argType="boolean"/>
     </fragment>
     <navigation android:id="@+id/myRiddlesGraph"
-        app:startDestination="@id/myRiddlesFragment">
+                app:startDestination="@id/myRiddlesFragment">
         <fragment
-            android:id="@+id/myRiddlesFragment"
-            android:name="com.example.riddlemethis.MyRiddlesFragment"
-            android:label="fragment_myriddles"
-            tools:layout="@layout/fragment_myriddles">
+                android:id="@+id/myRiddlesFragment"
+                android:name="com.example.riddlemethis.MyRiddlesFragment"
+                android:label="fragment_myriddles"
+                tools:layout="@layout/fragment_myriddles">
             <action
-                android:id="@+id/action_myRiddlesFragment_to_viewMyRiddleFragment"
-                app:destination="@id/viewMyRiddleFragment" />
+                    android:id="@+id/action_myRiddlesFragment_to_viewMyRiddleFragment"
+                    app:destination="@id/viewMyRiddleFragment"/>
             <action
-                android:id="@+id/action_myRiddlesFragment_to_createRiddleFragment"
-                app:destination="@id/createRiddleFragment" />
+                    android:id="@+id/action_myRiddlesFragment_to_createRiddleFragment"
+                    app:destination="@id/createRiddleFragment"/>
         </fragment>
         <fragment
-            android:id="@+id/createRiddleFragment"
-            android:name="com.example.riddlemethis.CreateRiddleFragment"
-            android:label="fragment_create_riddle"
-            tools:layout="@layout/fragment_create_riddle" >
+                android:id="@+id/createRiddleFragment"
+                android:name="com.example.riddlemethis.CreateRiddleFragment"
+                android:label="fragment_create_riddle"
+                tools:layout="@layout/fragment_create_riddle">
             <action
-                android:id="@+id/action_createRiddleFragment_to_myRiddlesFragment"
-                app:destination="@id/myRiddlesFragment" />
+                    android:id="@+id/action_createRiddleFragment_to_myRiddlesFragment"
+                    app:destination="@id/myRiddlesFragment"/>
         </fragment>
         <fragment
-            android:id="@+id/viewMyRiddleFragment"
-            android:name="com.example.riddlemethis.ViewMyRiddleFragment"
-            android:label="fragment_viewmyriddle"
-            tools:layout="@layout/fragment_view_my_riddle" >
+                android:id="@+id/viewMyRiddleFragment"
+                android:name="com.example.riddlemethis.ViewMyRiddleFragment"
+                android:label="fragment_viewmyriddle"
+                tools:layout="@layout/fragment_view_my_riddle">
             <action
-                android:id="@+id/action_viewMyRiddleFragment_to_myRiddlesFragment"
-                app:destination="@id/myRiddlesFragment" />
+                    android:id="@+id/action_viewMyRiddleFragment_to_myRiddlesFragment"
+                    app:destination="@id/myRiddlesFragment"/>
         </fragment>
     </navigation>
     <fragment
-        android:id="@+id/savedRiddlesFragment"
-        android:name="com.example.riddlemethis.SavedRiddlesFragment"
-        android:label="fragment_savedriddles"
-        tools:layout="@layout/fragment_saved_riddles" >
+            android:id="@+id/savedRiddlesFragment"
+            android:name="com.example.riddlemethis.SavedRiddlesFragment"
+            android:label="fragment_savedriddles"
+            tools:layout="@layout/fragment_saved_riddles">
         <action
-            android:id="@+id/action_savedRiddlesFragment_to_viewRiddleFragment"
-            app:destination="@id/viewRiddleFragment" />
+                android:id="@+id/action_savedRiddlesFragment_to_viewRiddleFragment"
+                app:destination="@id/viewRiddleFragment"/>
     </fragment>
     <action
-        android:id="@+id/action_global_myRiddlesGraph"
-        app:destination="@id/myRiddlesGraph" />
+            android:id="@+id/action_global_myRiddlesGraph"
+            app:destination="@id/myRiddlesGraph"/>
     <action
-        android:id="@+id/action_global_discoverFragment2"
-        app:destination="@id/discoverFragment" />
+            android:id="@+id/action_global_discoverFragment2"
+            app:destination="@id/discoverFragment"/>
     <action
-        android:id="@+id/action_global_savedRiddlesFragment"
-        app:destination="@id/savedRiddlesFragment" />
+            android:id="@+id/action_global_savedRiddlesFragment"
+            app:destination="@id/savedRiddlesFragment"/>
     <action
-        android:id="@+id/action_global_myAccountFragment"
-        app:destination="@id/myAccountFragment" />
+            android:id="@+id/action_global_myAccountFragment"
+            app:destination="@id/myAccountFragment"/>
 </navigation>

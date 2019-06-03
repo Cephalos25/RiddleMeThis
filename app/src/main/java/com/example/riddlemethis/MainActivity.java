@@ -2,6 +2,7 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import androidx.navigation.NavController;
 import com.backendless.Backendless;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -96,38 +97,48 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        //NavController and id of navAction to navigate to
+        NavController navController = Navigation.findNavController(navHostFragment);
+        int navAction = -1;
         switch (id) {
             case R.id.menuitem_nav_discover:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_discoverFragment);
+                    navAction = R.id.action_loginGraph_to_discoverFragment;
                 } else {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_discoverFragment2);
+                    navAction = R.id.action_global_discoverFragment2;
                 }
+                break;
             case R.id.menuitem_nav_login:
                 if(Backendless.UserService.CurrentUser() == null) {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_loginGraph);
+                    navAction = R.id.action_global_loginGraph;
                 } else {
                     if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
-                        Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_myAccountFragment);
+                        navAction = R.id.action_loginGraph_to_myAccountFragment;
                     } else {
-                        Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myAccountFragment);
+                        navAction = R.id.action_global_myAccountFragment;
                     }
                 }
+                break;
             case R.id.menuitem_nav_ownriddles:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_myRiddlesGraph);
+                    navAction = R.id.action_loginGraph_myRiddlesGraph;
                 } else {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myRiddlesGraph);
+                    navAction = R.id.action_global_myRiddlesGraph;
                 }
+                break;
             case R.id.menuitem_nav_saved:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)) {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_savedRiddlesFragment);
+                    navAction = R.id.action_loginGraph_to_savedRiddlesFragment;
                 } else {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_savedRiddlesFragment);
+                    navAction = R.id.action_global_savedRiddlesFragment;
                 }
+                break;
         }
 
+        //navigate here
+        if (navAction != -1) {
+            navController.navigate(navAction);
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
