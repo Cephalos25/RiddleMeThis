@@ -96,25 +96,31 @@ public class DiscoverFragment extends Fragment {
     }
 
     private void populateListView(){
-        LoadRelationsQueryBuilder<Riddle> loadRelationsQueryBuilder;
-        loadRelationsQueryBuilder = LoadRelationsQueryBuilder.of(Riddle.class);
-        loadRelationsQueryBuilder.setRelationName("savedRiddles");
+        if(Backendless.UserService.CurrentUser() != null) {
+            LoadRelationsQueryBuilder<Riddle> loadRelationsQueryBuilder;
+            loadRelationsQueryBuilder = LoadRelationsQueryBuilder.of(Riddle.class);
+            loadRelationsQueryBuilder.setRelationName("savedRiddles");
 
-        Backendless.Data.of(BackendlessUser.class).loadRelations(Backendless.UserService.loggedInUser(),
-                loadRelationsQueryBuilder, new AsyncCallback<List<Riddle>>() {
-                    @Override
-                    public void handleResponse(List<Riddle> response) {
-                        savedRiddles = response;
-                        listView.setAdapter(new DiscoveredRiddlesAdapter(getContext(),
-                                R.layout.listitem_discoverriddles_riddle, riddles, savedRiddles));
-                        progressBar.setVisibility(View.INVISIBLE);
-                        listView.setVisibility(View.VISIBLE);
-                    }
+            Backendless.Data.of(BackendlessUser.class).loadRelations(Backendless.UserService.loggedInUser(),
+                    loadRelationsQueryBuilder, new AsyncCallback<List<Riddle>>() {
+                        @Override
+                        public void handleResponse(List<Riddle> response) {
+                            savedRiddles = response;
+                            listView.setAdapter(new DiscoveredRiddlesAdapter(getContext(),
+                                    R.layout.listitem_discoverriddles_riddle, riddles, savedRiddles));
+                            progressBar.setVisibility(View.INVISIBLE);
+                            listView.setVisibility(View.VISIBLE);
+                        }
 
-                    @Override
-                    public void handleFault(BackendlessFault fault) {
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
 
-                    }
-                });
+                        }
+                    });
+        } else {
+            listView.setAdapter(new SavedRiddlesAdapter(getContext(), riddles));
+            progressBar.setVisibility(View.INVISIBLE);
+            listView.setVisibility(View.VISIBLE);
+        }
     }
 }

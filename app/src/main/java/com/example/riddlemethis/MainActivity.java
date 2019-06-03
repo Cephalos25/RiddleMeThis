@@ -108,18 +108,17 @@ public class MainActivity extends AppCompatActivity
                 if(Backendless.UserService.CurrentUser() == null) {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_loginGraph);
                 } else {
-
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_myAccountFragment);
-                }
-            case R.id.menuitem_nav_ownriddles:
-                if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_myRiddlesGraph);
-                } else {
                     if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
                         Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_myAccountFragment);
                     } else {
                         Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myAccountFragment);
                     }
+                }
+            case R.id.menuitem_nav_ownriddles:
+                if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_myRiddlesGraph);
+                } else {
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myRiddlesGraph);
                 }
             case R.id.menuitem_nav_saved:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)) {

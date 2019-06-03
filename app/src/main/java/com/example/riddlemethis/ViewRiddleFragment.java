@@ -73,7 +73,12 @@ public class ViewRiddleFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        loadRiddle();
+        if(Backendless.UserService.CurrentUser() != null) {
+            loadRiddle();
+        } else {
+            checkBoxIsSaved.setEnabled(false);
+            setActiveVisibility();
+        }
     }
 
     private void loadRiddle() {
@@ -132,50 +137,54 @@ public class ViewRiddleFragment extends Fragment {
     }
 
     private void setListeners() {
-        checkBoxIsSaved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked && !isSaved) {
-                    setLoadingVisibility();
-                    List<Riddle> riddleAsList = new ArrayList<>();
-                    riddleAsList.add(riddle);
-                    Backendless.Persistence.of(BackendlessUser.class).addRelation(Backendless.UserService
-                                    .CurrentUser(), "savedRiddles", riddleAsList, new AsyncCallback<Integer>() {
-                                @Override
-                                public void handleResponse(Integer response) {
-                                    isSaved = true;
-                                    setActiveVisibility();
-                                }
+        if(Backendless.UserService.CurrentUser() != null) {
+            checkBoxIsSaved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked && !isSaved) {
+                        setLoadingVisibility();
+                        List<Riddle> riddleAsList = new ArrayList<>();
+                        riddleAsList.add(riddle);
+                        Backendless.Persistence.of(BackendlessUser.class).addRelation(Backendless.UserService
+                                        .CurrentUser(), "savedRiddles", riddleAsList,
+                                new AsyncCallback<Integer>() {
+                                    @Override
+                                    public void handleResponse(Integer response) {
+                                        isSaved = true;
+                                        setActiveVisibility();
+                                    }
 
-                                @Override
-                                public void handleFault(BackendlessFault fault) {
-                                    checkBoxIsSaved.setChecked(false);
-                                    setActiveVisibility();
+                                    @Override
+                                    public void handleFault(BackendlessFault fault) {
+                                        checkBoxIsSaved.setChecked(false);
+                                        setActiveVisibility();
+                                    }
                                 }
-                            }
-                    );
-                } else if(!isChecked && isSaved) {
-                    setLoadingVisibility();
-                    List<Riddle> riddleAsList = new ArrayList<>();
-                    riddleAsList.add(riddle);
-                    Backendless.Persistence.of(BackendlessUser.class).deleteRelation(Backendless.UserService
-                                    .CurrentUser(), "savedRiddles", riddleAsList, new AsyncCallback<Integer>() {
-                                @Override
-                                public void handleResponse(Integer response) {
-                                    isSaved = false;
-                                    setActiveVisibility();
-                                }
+                        );
+                    } else if (!isChecked && isSaved) {
+                        setLoadingVisibility();
+                        List<Riddle> riddleAsList = new ArrayList<>();
+                        riddleAsList.add(riddle);
+                        Backendless.Persistence.of(BackendlessUser.class).deleteRelation(Backendless.UserService
+                                        .CurrentUser(), "savedRiddles", riddleAsList,
+                                new AsyncCallback<Integer>() {
+                                    @Override
+                                    public void handleResponse(Integer response) {
+                                        isSaved = false;
+                                        setActiveVisibility();
+                                    }
 
-                                @Override
-                                public void handleFault(BackendlessFault fault) {
-                                    checkBoxIsSaved.setChecked(true);
-                                    setActiveVisibility();
+                                    @Override
+                                    public void handleFault(BackendlessFault fault) {
+                                        checkBoxIsSaved.setChecked(true);
+                                        setActiveVisibility();
+                                    }
                                 }
-                            }
-                    );
+                        );
+                    }
                 }
-            }
-        });
+            });
+        }
         showAnswer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
