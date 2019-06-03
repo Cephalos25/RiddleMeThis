@@ -34,6 +34,7 @@ public class LoginFragment extends Fragment {
     private View rootView;
 
     private SharedViewModel model;
+    private OnLoginFragmentInteractionListener activity;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -44,6 +45,12 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         model.setCurrentFragment(LoginFragment.class);
+        if(getActivity() instanceof OnLoginFragmentInteractionListener) {
+            activity = (OnLoginFragmentInteractionListener) getActivity();
+        } else {
+            throw new IllegalStateException("Activity must implement " +
+                    "OnLoginFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -51,7 +58,8 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
+        wireWidgets();
+        setListeners();
         return rootView;
     }
 
@@ -84,6 +92,21 @@ public class LoginFragment extends Fragment {
                 }, stayLoggedIn);
             }
         });
+        buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_createAccountFragment);
+            }
+        });
+        buttonForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_resetPasswordFragment);
+            }
+        });
     }
 
+    public interface OnLoginFragmentInteractionListener {
+        public void onLoginAttempt();
+    }
 }

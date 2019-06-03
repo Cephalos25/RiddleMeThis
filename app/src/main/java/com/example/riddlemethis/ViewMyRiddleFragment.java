@@ -7,7 +7,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,21 +22,27 @@ import android.widget.PopupWindow;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+
 
 public class ViewMyRiddleFragment extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-private TextView textViewRiddleTitle;
-private TextView textViewRiddleText;
-private Button buttonDelete;
-private Button buttonEdit;
-private TextView textViewRiddleAnswer;
+    private TextView textViewRiddleTitle;
+    private TextView textViewRiddleText;
+    private Button buttonDelete;
+    private Button buttonEdit;
+    private TextView textViewRiddleAnswer;
+    private Button buttonBack;
 
-private EditText editTextRiddle;
-private EditText editTextAnswer;
-private Button buttonSave;
-private Button buttonRevealHint;
-private Switch switchRevealAnswer;
+    private EditText editTextRiddle;
+    private EditText editTextAnswer;
+    private Button buttonSave;
+    private Button buttonRevealHint;
+    private Switch switchRevealAnswer;
   
-private SharedViewModel model;
+    private SharedViewModel model;
+    private Riddle riddle;
   
     public ViewMyRiddleFragment() {
         // Required empty public constructor
@@ -45,6 +53,8 @@ private SharedViewModel model;
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         model.setCurrentFragment(ViewMyRiddleFragment.class);
+        riddle = getArguments().getParcelable("riddle");
+        Log.d(MainActivity.TAG, riddle.toString());
     }
 
     @Override
@@ -58,9 +68,11 @@ private SharedViewModel model;
     }
 
     private void populateFragment() {
-        //TODO receive riddle from selected choice in MyRiddlesFragment or
-        // DiscoverRiddlesFragment and populate the textviews
-
+        textViewRiddleTitle.setText(riddle.getName().concat(":"));
+        textViewRiddleText.setText(riddle.getText());
+        textViewRiddleAnswer.setText(riddle.getCorrectAnswer());
+        editTextRiddle.setText(riddle.getText());
+        editTextAnswer.setText(riddle.getCorrectAnswer());
     }
 
     private void setListeners() {
@@ -68,6 +80,12 @@ private SharedViewModel model;
         buttonDelete.setOnClickListener(this);
         buttonEdit.setOnClickListener(this);
         buttonRevealHint.setOnClickListener(this);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
+            }
+        });
     }
 
     private void wireWidgets(View view) {
@@ -84,7 +102,9 @@ private SharedViewModel model;
         editTextRiddle = view.findViewById(R.id.edittext_myriddlepopup_riddle);
 
         buttonSave = view.findViewById(R.id.button_myriddlepopup_save);
-        buttonRevealHint = view.findViewById(R.id.button_viewmyriddlefragment_viewhint);    
+        buttonRevealHint = view.findViewById(R.id.button_viewmyriddlefragment_viewhint);
+
+        buttonBack = view.findViewById(R.id.button_viewmyriddle_back);
     }
 
 
@@ -99,17 +119,45 @@ private SharedViewModel model;
             case R.id.button_viewmyriddlefragment_viewhint:
                 //TODO create the view hint capability
                 viewHint();
-
+            case R.id.button_myriddlepopup_save:
+                saveRiddle();
 
         }
 
     }
 
+    private void saveRiddle() {
+        Backendless.Persistence.of(Riddle.class).save(riddle, new AsyncCallback<Riddle>() {
+            @Override
+            public void handleResponse(Riddle response) {
+                textViewRiddleText.setText(response.getText());
+                textViewRiddleAnswer.setText(response.getCorrectAnswer());
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
+    }
+
     private void viewHint() {
+
     }
 
 
     private void deleteRiddle() {
+        Backendless.Persistence.of(Riddle.class).remove(riddle, new AsyncCallback<Long>() {
+            @Override
+            public void handleResponse(Long response) {
+                Navigation.findNavController(buttonDelete).navigate(R.id.action_viewMyRiddleFragment_to_myRiddlesFragment);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
     }
 
     private void editRiddle(View v) {
@@ -129,10 +177,8 @@ private SharedViewModel model;
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(buttonDelete.isPressed()){
-                    textViewRiddleAnswer.setText(editTextAnswer.getText());
-                    textViewRiddleText.setText(editTextRiddle.getText());
-                    popupWindow.dismiss();
+                popupWindow.dismiss();
+                if(!buttonSave.isPressed()){
                     return true;
                 }
                 return false;
@@ -152,10 +198,10 @@ private SharedViewModel model;
     }
 
     private void hideAnswer() {
-        textViewRiddleAnswer.setTextColor(0xfff);
+        textViewRiddleAnswer.setVisibility(View.INVISIBLE);
     }
 
     private void revealAnswer() {
-        textViewRiddleAnswer.setTextColor(0000);
+        textViewRiddleAnswer.setVisibility(View.VISIBLE);
     }
 }

@@ -10,26 +10,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
-import com.backendless.servercode.annotation.BackendlessGrantAccess;
 
 import java.util.List;
-import java.util.prefs.BackingStoreException;
 
 public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private List<Riddle> myRiddlesList;
     private ListView myRiddlesListView;
     private Button buttonCreateNewRiddle;
+    private ProgressBar progressBar;
   
     private SharedViewModel model;
 
@@ -39,7 +37,8 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         View rootView = inflater.inflate(R.layout.fragment_myriddles, container, false);
         wireWidgets(rootView);
         setListeners();
-        populateListView();
+        myRiddlesListView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         return rootView;
     }
 
@@ -54,6 +53,9 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
             @Override
             public void handleResponse(List<Riddle> response) {
                 myRiddlesList = response;
+                myRiddlesListView.setAdapter(new SavedRiddlesAdapter(getContext(), myRiddlesList));
+                progressBar.setVisibility(View.INVISIBLE);
+                myRiddlesListView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -69,10 +71,6 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         model.setCurrentFragment(MyRiddlesFragment.class);
     }
-        
-
-    private void populateListView() {
-    }
 
     private void setListeners() {
         myRiddlesListView.setOnItemClickListener(this);
@@ -80,8 +78,9 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void wireWidgets(View rootView) {
-        myRiddlesListView = rootView.findViewById(R.id.listview_myriddles_savedriddles);
+        myRiddlesListView = rootView.findViewById(R.id.listview_myriddles_list);
         buttonCreateNewRiddle = rootView.findViewById(R.id.button_myriddles_create);
+        progressBar = rootView.findViewById(R.id.progressBar_myriddles_loading);
     }
 
     @Override

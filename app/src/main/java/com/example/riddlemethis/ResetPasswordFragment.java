@@ -61,7 +61,7 @@ public class ResetPasswordFragment extends Fragment {
     }
 
     private void setListeners() {
-        buttonRememberPassword.setOnClickListener(new View.OnClickListener() {
+        buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 Backendless.UserService.restorePassword(inputEmail.getText().toString(),
