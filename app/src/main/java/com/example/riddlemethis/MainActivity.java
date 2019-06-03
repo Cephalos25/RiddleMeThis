@@ -2,8 +2,11 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import androidx.navigation.NavController;
 import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -143,5 +146,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Backendless.UserService.logout(new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response) {
+                Log.d(TAG, "onStop: Backendless user logged out.");
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.d(TAG, "onStop: Backendless user logout failed.");
+            }
+        });
     }
 }

@@ -74,6 +74,7 @@ public class LoginFragment extends Fragment {
                 Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
                     @Override
                     public void handleResponse(BackendlessUser response) {
+                        Log.d(TAG, "handleResponse: " + response.getEmail() + " successfully logged in.");
                         Navigation.findNavController(v).navigate(R.id.action_loginGraph_myRiddlesGraph);
                     }
 

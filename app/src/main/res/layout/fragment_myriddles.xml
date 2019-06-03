@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/listview_myriddles_savedriddles"
         android:layout_width="412dp"
         android:layout_height="682dp"
