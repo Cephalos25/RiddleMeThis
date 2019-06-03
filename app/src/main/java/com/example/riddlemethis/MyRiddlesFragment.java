@@ -53,6 +53,7 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
             @Override
             public void handleResponse(List<Riddle> response) {
                 myRiddlesList = response;
+                myRiddlesListView.setAdapter(new SavedRiddlesAdapter(getContext(), myRiddlesList));
                 progressBar.setVisibility(View.INVISIBLE);
                 myRiddlesListView.setVisibility(View.VISIBLE);
             }
@@ -77,9 +78,9 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     private void wireWidgets(View rootView) {
-        myRiddlesListView = rootView.findViewById(R.id.listview_myriddles_savedriddles);
+        myRiddlesListView = rootView.findViewById(R.id.listview_myriddles_list);
         buttonCreateNewRiddle = rootView.findViewById(R.id.button_myriddles_create);
-        progressBar = rootView.findViewById(R.id.progressBar_myriddle_loading);
+        progressBar = rootView.findViewById(R.id.progressBar_myriddles_loading);
     }
 
     @Override

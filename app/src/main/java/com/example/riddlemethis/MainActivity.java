@@ -24,7 +24,7 @@ import androidx.navigation.Navigation;
 import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, LoginFragment.OnLoginFragmentInteractionListener {
     public static final String TAG = "MainActivity";
     public static final String BACKENDLESS_TAG = "Backendless";
 
@@ -158,5 +158,10 @@ public class MainActivity extends AppCompatActivity
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onLoginAttempt() {
+        checkMenuItems();
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,6 +54,7 @@ public class ViewMyRiddleFragment extends Fragment implements View.OnClickListen
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         model.setCurrentFragment(ViewMyRiddleFragment.class);
         riddle = getArguments().getParcelable("riddle");
+        Log.d(MainActivity.TAG, riddle.toString());
     }
 
     @Override
