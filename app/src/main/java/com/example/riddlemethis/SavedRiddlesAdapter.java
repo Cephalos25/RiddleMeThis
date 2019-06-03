@@ -37,13 +37,13 @@ public class SavedRiddlesAdapter extends ArrayAdapter<Riddle> {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(ctx).inflate(R.layout.listitem_savedriddles_riddle, parent,
                     false);
-            viewHolder.textView=convertView.findViewById(R.id.textView_riddleitem_name);
-            convertView.setTag(viewHolder);
+            viewHolder.textView=convertView.findViewById(R.id.textView_savedriddleitem_name);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         viewHolder.textView.setText(riddle.getName());
+        convertView.setTag(viewHolder);
 
         return convertView;
     }
