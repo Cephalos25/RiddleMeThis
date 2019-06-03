@@ -1,6 +1,8 @@
 package com.example.riddlemethis;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,12 +22,14 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private List<Riddle> myRiddlesList;
+    private List<Riddle> myRiddlesList = new ArrayList<>();
     private ListView myRiddlesListView;
+    private ArrayAdapter adapter;
     private Button buttonCreateNewRiddle;
     private ProgressBar progressBar;
   
@@ -37,6 +41,7 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         View rootView = inflater.inflate(R.layout.fragment_myriddles, container, false);
         wireWidgets(rootView);
         setListeners();
+        populateListView();
         myRiddlesListView.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         return rootView;
@@ -52,15 +57,15 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         Backendless.Data.of(Riddle.class).find(queryBuilder, new AsyncCallback<List<Riddle>>() {
             @Override
             public void handleResponse(List<Riddle> response) {
-                myRiddlesList = response;
-                myRiddlesListView.setAdapter(new SavedRiddlesAdapter(getContext(), myRiddlesList));
+                adapter.clear();
+                adapter.addAll(response);
                 progressBar.setVisibility(View.INVISIBLE);
                 myRiddlesListView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
-
+                Log.e(getClass().getSimpleName(), "handleFault: " + fault.getMessage());
             }
         });
     }
@@ -70,6 +75,11 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         model.setCurrentFragment(MyRiddlesFragment.class);
+    }
+
+    private void populateListView() {
+        adapter = new ArrayAdapter<Riddle>(getContext(), android.R.layout.simple_list_item_1, myRiddlesList);
+        myRiddlesListView.setAdapter(adapter);
     }
 
     private void setListeners() {

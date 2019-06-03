@@ -3,9 +3,11 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.backendless.exceptions.BackendlessFault;
 @LoginSection
 public class LoginFragment extends Fragment {
 
+    private static final String TAG = LoginFragment.class.getSimpleName();
     private EditText emailField;
     private EditText passwordField;
     private Button buttonLogin;
@@ -35,10 +38,6 @@ public class LoginFragment extends Fragment {
 
     private SharedViewModel model;
     private OnLoginFragmentInteractionListener activity;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,12 +81,14 @@ public class LoginFragment extends Fragment {
                 Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
                     @Override
                     public void handleResponse(BackendlessUser response) {
+                        Log.d(TAG, "handleResponse: " + response.getEmail() + " successfully logged in.");
+                        activity.onLoginAttempt();
                         Navigation.findNavController(v).navigate(R.id.action_loginGraph_myRiddlesGraph);
                     }
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
-
+                        Log.e(TAG, "handleFault: " + fault.getMessage());
                     }
                 }, stayLoggedIn);
             }
@@ -105,7 +106,7 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-
+  
     public interface OnLoginFragmentInteractionListener {
         public void onLoginAttempt();
     }

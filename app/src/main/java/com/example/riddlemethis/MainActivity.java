@@ -2,7 +2,11 @@ package com.example.riddlemethis;
 
 import android.os.Bundle;
 
+import android.util.Log;
+import androidx.navigation.NavController;
 import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.View;
@@ -125,41 +129,69 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        //NavController and id of navAction to navigate to
+        NavController navController = Navigation.findNavController(navHostFragment);
+        int navAction = -1;
         switch (id) {
             case R.id.menuitem_nav_discover:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_discoverFragment);
+                    navAction = R.id.action_loginGraph_to_discoverFragment;
                 } else {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_discoverFragment2);
+                    navAction = R.id.action_global_discoverFragment2;
                 }
                 break;
             case R.id.menuitem_nav_login:
                 if(Backendless.UserService.CurrentUser() == null) {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_loginGraph);
+                    navAction = R.id.action_global_loginGraph;
                 } else {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myAccountFragment);
+                    if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
+                        navAction = R.id.action_loginGraph_to_myAccountFragment;
+                    } else {
+                        navAction = R.id.action_global_myAccountFragment;
+                    }
                 }
                 break;
             case R.id.menuitem_nav_ownriddles:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_myRiddlesGraph);
+                    navAction = R.id.action_loginGraph_myRiddlesGraph;
                 } else {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myRiddlesGraph);
+                    navAction = R.id.action_global_myRiddlesGraph;
                 }
                 break;
             case R.id.menuitem_nav_saved:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)) {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_savedRiddlesFragment);
+                    navAction = R.id.action_loginGraph_to_savedRiddlesFragment;
                 } else {
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_savedRiddlesFragment);
+                    navAction = R.id.action_global_savedRiddlesFragment;
                 }
                 break;
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+
+        //navigate here
+        if (navAction != -1) {
+            navController.navigate(navAction);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Backendless.UserService.logout(new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response) {
+                Log.d(TAG, "onStop: Backendless user logged out.");
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.d(TAG, "onStop: Backendless user logout failed.");
+            }
+        });
+        
     @Override
     public void onLoginAttempt() {
         checkMenuItems();

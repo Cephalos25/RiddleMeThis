@@ -9,15 +9,15 @@ public class Riddle implements Parcelable {
     private String text;
     private String correctAnswer;
 
+    public Riddle() {
+        this("","", "", "");
+    }
+  
     public Riddle(String objectId, String name, String text, String correctAnswer) {
         this.objectId = objectId;
         this.name = name;
         this.text = text;
         this.correctAnswer = correctAnswer;
-    }
-
-    public Riddle() {
-
     }
 
     protected Riddle(Parcel in) {

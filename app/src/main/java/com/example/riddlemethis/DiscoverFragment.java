@@ -27,7 +27,6 @@ import java.util.List;
 
 public class DiscoverFragment extends Fragment {
 
-    private View rootView;
     private ListView listView;
     private ProgressBar progressBar;
 
@@ -50,7 +49,7 @@ public class DiscoverFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_discover, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_discover, container, false);
         wireWidgets(rootView);
         listView.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
