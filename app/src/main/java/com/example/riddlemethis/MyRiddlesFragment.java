@@ -1,6 +1,8 @@
 package com.example.riddlemethis;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,13 +24,15 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 import com.backendless.servercode.annotation.BackendlessGrantAccess;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
 
 public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private List<Riddle> myRiddlesList;
+    private List<Riddle> myRiddlesList = new ArrayList<>();
     private ListView myRiddlesListView;
+    private ArrayAdapter adapter;
     private Button buttonCreateNewRiddle;
   
     private SharedViewModel model;
@@ -53,12 +57,13 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         Backendless.Data.of(Riddle.class).find(queryBuilder, new AsyncCallback<List<Riddle>>() {
             @Override
             public void handleResponse(List<Riddle> response) {
-                myRiddlesList = response;
+                adapter.clear();
+                adapter.addAll(response);
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
-
+                Log.e(getClass().getSimpleName(), "handleFault: " + fault.getMessage());
             }
         });
     }
@@ -72,6 +77,7 @@ public class MyRiddlesFragment extends Fragment implements AdapterView.OnItemCli
         
 
     private void populateListView() {
+        adapter = new ArrayAdapter<Riddle>(getContext(), android.R.layout.simple_list_item_1, myRiddlesList);
     }
 
     private void setListeners() {

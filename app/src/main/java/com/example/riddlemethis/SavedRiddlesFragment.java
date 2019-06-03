@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import com.backendless.Backendless;
-import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.LoadRelationsQueryBuilder;
@@ -81,7 +80,7 @@ public class SavedRiddlesFragment extends Fragment {
         loadRelationsQueryBuilder = LoadRelationsQueryBuilder.of(Riddle.class);
         loadRelationsQueryBuilder.setRelationName("savedRiddles");
 
-        Backendless.Data.of(BackendlessUser.class).loadRelations(Backendless.UserService.loggedInUser(),
+        Backendless.Data.of(Riddle.class).loadRelations(Backendless.UserService.loggedInUser(),
                 loadRelationsQueryBuilder, new AsyncCallback<List<Riddle>>() {
                     @Override
                     public void handleResponse(List<Riddle> response) {
@@ -98,5 +97,4 @@ public class SavedRiddlesFragment extends Fragment {
                     }
                 });
     }
-
 }
