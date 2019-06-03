@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
         Backendless.initApp(this, "88F61704-EB84-2DDB-FFA9-9D248EEC5000",
                 "2C84CAE4-48E0-0D8D-FFC3-C79C21CB3600");
         model = ViewModelProviders.of(this).get(SharedViewModel.class);
+        wireWidgets();
         setSupportActionBar(toolbar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
