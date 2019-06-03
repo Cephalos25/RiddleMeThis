@@ -8,6 +8,10 @@ public class Riddle implements Parcelable {
     private String text;
     private String correctAnswer;
 
+    public Riddle() {
+        this("", "", "");
+    }
+
     public Riddle(String name, String text, String correctAnswer) {
         this.name = name;
         this.text = text;
