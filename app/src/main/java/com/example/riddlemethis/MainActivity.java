@@ -133,24 +133,28 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_discoverFragment2);
                 }
+                break;
             case R.id.menuitem_nav_login:
                 if(Backendless.UserService.CurrentUser() == null) {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_loginGraph);
                 } else {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myAccountFragment);
                 }
+                break;
             case R.id.menuitem_nav_ownriddles:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_myRiddlesGraph);
                 } else {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myRiddlesGraph);
                 }
+                break;
             case R.id.menuitem_nav_saved:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)) {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_savedRiddlesFragment);
                 } else {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_savedRiddlesFragment);
                 }
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
