@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity
 
     private DrawerLayout drawerLayout;
     private NavigationView drawer;
+    private MenuItem ownRiddlesItem;
+    private MenuItem savedRiddlesItem;
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private View navHostFragment;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity
                 "2C84CAE4-48E0-0D8D-FFC3-C79C21CB3600");
         model = ViewModelProviders.of(this).get(SharedViewModel.class);
         wireWidgets();
+        checkMenuItems();
         setSupportActionBar(toolbar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +61,25 @@ public class MainActivity extends AppCompatActivity
         drawer.setNavigationItemSelectedListener(this);
     }
 
+    private void checkMenuItems() {
+        if(Backendless.UserService.CurrentUser() == null) {
+            ownRiddlesItem.setEnabled(false);
+            savedRiddlesItem.setEnabled(false);
+        } else {
+            ownRiddlesItem.setEnabled(true);
+            savedRiddlesItem.setEnabled(true);
+        }
+    }
+
     private void wireWidgets() {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawer = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         fab = findViewById(R.id.fab);
         navHostFragment = findViewById(R.id.fragment_mainactivity_navview);
+        Menu menu = drawer.getMenu();
+        ownRiddlesItem = menu.findItem(R.id.menuitem_nav_ownriddles);
+        savedRiddlesItem = menu.findItem(R.id.menuitem_nav_saved);
     }
 
     private void toggleDrawer() {
@@ -121,18 +137,13 @@ public class MainActivity extends AppCompatActivity
                 if(Backendless.UserService.CurrentUser() == null) {
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_global_loginGraph);
                 } else {
-
-                    Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_myAccountFragment);
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myAccountFragment);
                 }
             case R.id.menuitem_nav_ownriddles:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
                     Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_myRiddlesGraph);
                 } else {
-                    if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)){
-                        Navigation.findNavController(navHostFragment).navigate(R.id.action_loginGraph_to_myAccountFragment);
-                    } else {
-                        Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myAccountFragment);
-                    }
+                    Navigation.findNavController(navHostFragment).navigate(R.id.action_global_myRiddlesGraph);
                 }
             case R.id.menuitem_nav_saved:
                 if(model.getCurrentFragment().isAnnotationPresent(LoginSection.class)) {
